@@ -68,6 +68,40 @@ Beide Frameworks kommen für dieses Projekt grundsätzlich in Frage. Die folgend
 | Lokale Medienspeicherung | Dateisystem + Gerätegalerie | Direkte Integration über Flutter-Plugins |
 | Authentifizierung | **Firebase Auth** (oder Auth0) | Bewährte, sichere Authentifizierung; Social Login + E-Mail/Passwort |
 
+#### React Native: Code-Sharing zwischen App und Web
+
+React Native ist primär für iOS und Android konzipiert. Für die Web-Plattform empfiehlt sich **Next.js** (React) als separater Frontend-Zweig. Das bedeutet jedoch **nicht**, dass zwei vollständig getrennte Codebasen entstehen. Mit einem **Monorepo-Ansatz** (z. B. Turborepo oder Nx) lässt sich der Code sauber in Schichten aufteilen:
+
+```
+monorepo/
+├── apps/
+│   ├── mobile/        # React Native (Expo) – iOS & Android
+│   └── web/           # Next.js – Browser/Desktop
+├── packages/
+│   ├── models/        # TypeScript-Interfaces & DTOs (100 % geteilt)
+│   ├── utils/         # Hilfsfunktionen, Validierungen, Formatter (100 % geteilt)
+│   ├── api-client/    # HTTP-Client, API-Calls, Auth-Logik (100 % geteilt)
+│   ├── store/         # Zustand/TanStack Query State-Management (100 % geteilt)
+│   └── ui/            # Gemeinsame UI-Komponenten (optional, via React Native Web)
+└── backend/           # Nest.js API
+```
+
+**Was ist 100 % plattformübergreifend teilbar?**
+
+| Schicht | Teilbar | Beispiele |
+|---|---|---|
+| **Datenmodelle / Interfaces** | ✅ Vollständig | `User`, `MemoryBook`, `Chapter`, `Message` als TypeScript-Interfaces |
+| **Utility-Funktionen** | ✅ Vollständig | Datumsformatierung, Validierung, Verschlüsselungshelfer |
+| **API-Client** | ✅ Vollständig | `axios`/`fetch`-basierte API-Calls, Auth-Token-Handling |
+| **State Management** | ✅ Vollständig | TanStack Query Hooks, Zustand Stores |
+| **Business-Logik** | ✅ Vollständig | Berechtigungsprüfungen, Trigger-Logik für Nachrichten |
+| **UI-Komponenten** | ⚠️ Teilweise | Mit [React Native Web](https://necolas.github.io/react-native-web/) können `View`, `Text`, `Pressable` etc. auch im Browser gerendert werden |
+| **Plattform-APIs** | ❌ Plattformspezifisch | Kamera, Dateisystem, Push-Notifications → abstrakte Interfaces + plattformspezifische Implementierungen |
+
+**Fazit**: Bei React Native + Next.js entsteht **keine vollständig duplizierte Codebasis**. Die gesamte Geschäftslogik, alle Datenmodelle und Utilities werden einmal in gemeinsamen Packages geschrieben und von beiden Apps importiert. Plattformspezifischer Code beschränkt sich auf UI-Rendering-Details und native Geräte-APIs (Kamera, Haptik, Datei-Picker).
+
+Im Vergleich zu Flutter (wo eine einzige Dart-Codebasis alle Plattformen bedient) ist der React Native + Next.js-Ansatz etwas fragmentierter auf UI-Ebene, bietet aber den Vorteil, dass Web-spezifische Optimierungen (SEO, SSR via Next.js) ohne Kompromisse möglich sind.
+
 #### Alternative Stack (React Native + Next.js)
 
 | Ebene | Technologie |
@@ -77,6 +111,8 @@ Beide Frameworks kommen für dieses Projekt grundsätzlich in Frage. Die folgend
 | Zustandsverwaltung | Zustand / TanStack Query |
 | Lokale Datenbank | WatermelonDB (SQLite) |
 | Authentifizierung | Firebase Auth / Auth0 |
+| Monorepo | Turborepo / Nx |
+| Geteilte Packages | TypeScript Interfaces, API-Client, Utils, State |
 
 ### 3.2 Backend
 
