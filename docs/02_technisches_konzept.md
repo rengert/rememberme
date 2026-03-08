@@ -32,13 +32,51 @@ Alle Inhalte werden über einen zentralen Backend-Service synchronisiert. Offlin
 
 ### 3.1 Frontend / Mobile & Web
 
+#### Technologieentscheidung: Flutter vs. React Native
+
+Beide Frameworks kommen für dieses Projekt grundsätzlich in Frage. Die folgende Tabelle bewertet sie anhand der projektrelevanten Kriterien:
+
+| Kriterium | Flutter | React Native |
+|---|---|---|
+| **Sprache** | Dart | JavaScript / TypeScript |
+| **iOS & Android** | ✅ Vollständig | ✅ Vollständig |
+| **Web-Support** | ✅ Stabil (Flutter Web) | ⚠️ Möglich, aber React (Next.js) für Web empfohlen |
+| **Desktop** | ✅ macOS, Windows, Linux | ⚠️ Experimentell / begrenzt |
+| **Einheitliche Codebasis (Mobile + Web)** | ✅ Ein Codebase, eine Sprache | ⚠️ Oft separate Web-App (React) notwendig |
+| **UI-Rendering** | Eigene Render-Engine (Skia/Impeller) – pixel-identical auf allen Plattformen | Nutzt native UI-Komponenten – plattformtypischer Look |
+| **Performance** | Sehr hoch (AOT-kompiliert) | Hoch, leicht schlechter bei komplexen Animationen durch JS-Bridge |
+| **Kamera & Medienzugriff** | Gut (flutter_camera, image_picker) | Sehr gut (react-native-vision-camera, sehr große Community) |
+| **Offline / lokale DB** | Drift/SQLite, gut unterstützt | WatermelonDB / SQLite, sehr gut unterstützt |
+| **Ökosystem & Community** | Wachsend, Google-backed | Sehr groß, Meta-backed, viele etablierte Libs |
+| **Teamkenntnisse** | Dart-Kenntnisse nötig | TypeScript/JS – oft im Team bereits vorhanden |
+| **Reifegrad** | Stabil, v3.x | Sehr reif (seit 2015), große Produktionsnutzung |
+
+**Empfehlung:**
+
+- **Flutter** wird empfohlen, wenn Mobile + Web aus einem einzigen Codebase bedient werden sollen und kein separates Web-Framework gewünscht ist. Besonders vorteilhaft, wenn Dart neu erlernt werden kann oder kein bestehendes JS/TS-Team vorhanden ist.
+- **React Native** ist die bessere Wahl, wenn das Entwicklungsteam bereits JavaScript/TypeScript-Expertise mitbringt (z. B. durch ein bestehendes Nest.js-Backend-Team), da die Sprachkonsistenz die Onboarding-Zeit deutlich verkürzt. Für die Web-App würde in diesem Fall **Next.js** (React) parallel eingesetzt.
+
+> **Projektentscheidung**: Im weiteren Konzept wird **Flutter** als primäres Framework verwendet, da es die vollständigste Cross-Platform-Lösung (Mobile + Web) aus einem einzigen Codebase bietet. Sollte das Team überwiegend TypeScript-Erfahrung haben, ist **React Native + Next.js** eine gleichwertige Alternative, ohne konzeptionelle Änderungen am Backend oder Datenmodell.
+
+#### Gewählter Stack
+
 | Ebene | Technologie | Begründung |
 |---|---|---|
-| Mobile & Web | **Flutter** | Echter nativer Code für iOS, Android und Web aus einer Codebasis; starke Community, Google-Unterstützung |
+| Mobile & Web | **Flutter** | Nativer Code für iOS, Android und Web aus einer Codebase; starke Community, Google-Unterstützung |
 | Zustandsverwaltung | **Riverpod** | Reaktives, testbares State-Management für Flutter |
 | Lokale Datenbank | **Drift (SQLite)** | Typsichere, lokale Datenbank für Offline-First |
 | Lokale Medienspeicherung | Dateisystem + Gerätegalerie | Direkte Integration über Flutter-Plugins |
 | Authentifizierung | **Firebase Auth** (oder Auth0) | Bewährte, sichere Authentifizierung; Social Login + E-Mail/Passwort |
+
+#### Alternative Stack (React Native + Next.js)
+
+| Ebene | Technologie |
+|---|---|
+| Mobile | **React Native** (Expo) |
+| Web | **Next.js** (React) |
+| Zustandsverwaltung | Zustand / TanStack Query |
+| Lokale Datenbank | WatermelonDB (SQLite) |
+| Authentifizierung | Firebase Auth / Auth0 |
 
 ### 3.2 Backend
 
@@ -280,8 +318,8 @@ APIs werden unter `/v1/` versioniert. Breaking Changes erfordern eine neue Major
 
 ## 11. Qualitätssicherung
 
-- **Unit Tests**: >80 % Code-Coverage für Business-Logik (Backend: Jest; Flutter: flutter_test)
+- **Unit Tests**: >80 % Code-Coverage für Business-Logik (Backend: Jest; Flutter: flutter_test / React Native: Jest + React Native Testing Library)
 - **Integrationstests**: API-Integrationstests mit SuperTest
-- **E2E-Tests**: Kritische Flows (Registrierung, Inhalt erstellen, Nachricht senden) mit Playwright (Web) und Patrol (Flutter)
+- **E2E-Tests**: Kritische Flows (Registrierung, Inhalt erstellen, Nachricht senden) mit Playwright (Web) und Patrol (Flutter) bzw. Maestro (React Native)
 - **Performance**: API-Antwortzeiten <200 ms (p95) unter Last; Medien-Upload mit Progress-Feedback
 - **Accessibility**: Automatisiertes Testen mit axe-core; manuelle Tests mit VoiceOver / TalkBack
