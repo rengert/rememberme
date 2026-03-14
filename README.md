@@ -1,35 +1,47 @@
 # Remember Me
 
-> Things you want to remember
+Eine Plattform, um Erinnerungen, Lebensgeschichten und persönliche Nachrichten für die Nachwelt festzuhalten – *Wie soll man sich an mich erinnern?*
 
-A simple, fast web application to keep track of the things you want to remember.
+## Konzept
 
-## Features
+Das Projekt beginnt mit einem vollständigen fachlichen und technischen Konzept, das als Grundlage für die spätere Umsetzung dient:
 
-- ✅ Add items you want to remember
-- ✔️ Mark items as done
-- 🗑️ Delete individual items
-- 🧹 Clear all done items at once
-- 🔍 Filter by All / Active / Done
-- 💾 Persists data in `localStorage` — your items survive page reloads
+| Dokument | Beschreibung |
+|---|---|
+| [Fachliches Konzept](docs/01_fachliches_konzept.md) | Vision, Zielgruppe, Kernfunktionen, User Stories, Datenschutz & Monetarisierung |
+| [Technisches Konzept](docs/02_technisches_konzept.md) | Architektur, Technologie-Stack, Datenmodell, Sicherheit, API-Design & Roadmap |
 
-## Getting Started
+## Web-Prototyp
+
+Ein erster Web-Prototyp wurde als React-Anwendung umgesetzt, um die grundlegenden Interaktionsmuster zu erproben.
+
+### Features
+
+- ✅ Einträge hinzufügen
+- ✔️ Einträge als erledigt markieren
+- 🗑️ Einzelne Einträge löschen
+- 🧹 Alle erledigten Einträge auf einmal löschen
+- 🔍 Filtern nach Alle / Aktiv / Erledigt
+- 💾 Lokale Persistenz via `localStorage`
+
+### Getting Started
 
 ```bash
-# Install dependencies
+# Abhängigkeiten installieren
 npm install
 
-# Start the development server
+# Entwicklungsserver starten
 npm run dev
 
-# Build for production
+# Für Produktion bauen
 npm run build
 
-# Run tests
+# Tests ausführen
 npm test
 ```
 
-## Tech Stack
+### Tech Stack
 
 - [Vite](https://vite.dev) + [React](https://react.dev) + [TypeScript](https://www.typescriptlang.org/)
-- [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com/) for unit tests
+- [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com/) für Unit-Tests
+
