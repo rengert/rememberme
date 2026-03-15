@@ -26,7 +26,7 @@ describe('AddItem', () => {
     render(<AddItem onAdd={onAdd} />);
     await userEvent.type(screen.getByRole('textbox'), '  Buy flowers  ');
     await userEvent.click(screen.getByRole('button', { name: /add/i }));
-    expect(onAdd).toHaveBeenCalledWith('  Buy flowers  ');
+    expect(onAdd).toHaveBeenCalledWith('Buy flowers');
     expect(screen.getByRole('textbox')).toHaveValue('');
   });
 

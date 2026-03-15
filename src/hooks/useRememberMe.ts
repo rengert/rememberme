@@ -6,14 +6,20 @@ const STORAGE_KEY = 'rememberme-items';
 function loadItems(): RememberItem[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as RememberItem[]) : [];
+    if (!raw) return [];
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) ? (parsed as RememberItem[]) : [];
   } catch {
     return [];
   }
 }
 
 function saveItems(items: RememberItem[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    // Ignore write failures (e.g. storage quota exceeded or storage disabled)
+  }
 }
 
 export function useRememberMe() {

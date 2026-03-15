@@ -10,7 +10,7 @@ export function AddItem({ onAdd }: AddItemProps) {
   function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     if (!value.trim()) return;
-    onAdd(value);
+    onAdd(value.trim());
     setValue('');
   }
 
