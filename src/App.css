@@ -1,0 +1,223 @@
+/* ── Layout ──────────────────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 4rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  background: linear-gradient(135deg, #646cff 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-subtitle {
+  color: #888;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.app-content {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Add item form ──────────────────────────────────────── */
+.add-item-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-item-input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1e1e1e;
+  color: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.add-item-input:focus {
+  border-color: #646cff;
+}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.1em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.btn-primary {
+  background-color: #646cff;
+  color: #fff;
+}
+
+.btn-primary:not(:disabled):hover {
+  background-color: #535bf2;
+}
+
+.btn-danger {
+  background-color: transparent;
+  color: #e55;
+  border-color: transparent;
+  padding: 0.3em 0.6em;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.btn-danger:hover {
+  background-color: rgba(220, 60, 60, 0.12);
+}
+
+.btn-filter {
+  background-color: transparent;
+  color: inherit;
+  border-color: #444;
+  padding: 0.35em 0.8em;
+  font-size: 0.85rem;
+}
+
+.btn-filter:hover {
+  border-color: #646cff;
+}
+
+.btn-filter--active {
+  background-color: #646cff;
+  color: #fff;
+  border-color: #646cff;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: #888;
+  border-color: transparent;
+  font-size: 0.85rem;
+  padding: 0.35em 0.6em;
+}
+
+.btn-ghost:hover {
+  color: #e55;
+}
+
+/* ── Filter bar ─────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0;
+}
+
+.filter-bar__count {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #888;
+  white-space: nowrap;
+}
+
+.filter-bar__buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* ── List ───────────────────────────────────────────────── */
+.remember-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.remember-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  transition: opacity 0.2s;
+}
+
+.remember-item--done {
+  opacity: 0.55;
+}
+
+.remember-item__label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.remember-item__checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  accent-color: #646cff;
+  cursor: pointer;
+}
+
+.remember-item__text {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.remember-item--done .remember-item__text {
+  text-decoration: line-through;
+}
+
+/* ── Empty state ────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  color: #666;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+
+/* ── Light mode overrides ───────────────────────────────── */
+@media (prefers-color-scheme: light) {
+  .add-item-input {
+    background: #f5f5f5;
+    border-color: #ccc;
+    color: #213547;
+  }
+
+  .remember-item {
+    background: #fafafa;
+    border-color: #e5e5e5;
+  }
+}
+

@@ -56,7 +56,7 @@ Beide Frameworks kommen für dieses Projekt grundsätzlich in Frage. Die folgend
 - **Flutter** wird empfohlen, wenn Mobile + Web aus einem einzigen Codebase bedient werden sollen und kein separates Web-Framework gewünscht ist. Besonders vorteilhaft, wenn Dart neu erlernt werden kann oder kein bestehendes JS/TS-Team vorhanden ist.
 - **React Native** ist die bessere Wahl, wenn das Entwicklungsteam bereits JavaScript/TypeScript-Expertise mitbringt (z. B. durch ein bestehendes Nest.js-Backend-Team), da die Sprachkonsistenz die Onboarding-Zeit deutlich verkürzt. Für die Web-App würde in diesem Fall **Next.js** (React) parallel eingesetzt.
 
-> **Projektentscheidung**: Im weiteren Konzept wird **Flutter** als primäres Framework verwendet, da es die vollständigste Cross-Platform-Lösung (Mobile + Web) aus einem einzigen Codebase bietet. Sollte das Team überwiegend TypeScript-Erfahrung haben, ist **React Native + Next.js** eine gleichwertige Alternative, ohne konzeptionelle Änderungen am Backend oder Datenmodell.
+> **Projektentscheidung**: Im weiteren Konzept wird **Flutter** als Ziel-Framework für die vollständige Cross-Platform-Lösung (Mobile + Web) aus einem einzigen Codebase beschrieben. Als erster Schritt wurde ein **Web-Prototyp mit Vite + React + TypeScript** umgesetzt, um die grundlegenden Interaktionsmuster und die Benutzeroberfläche schnell zu erproben. Die Produktivimplementierung erfolgt auf Basis von Flutter. Sollte das Team überwiegend TypeScript-Erfahrung haben, ist **React Native + Next.js** eine gleichwertige Alternative, ohne konzeptionelle Änderungen am Backend oder Datenmodell.
 
 #### Gewählter Stack
 
